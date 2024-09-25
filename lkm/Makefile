@@ -44,7 +44,13 @@ all: clean
 
 clean:
 	make ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KERNEL) M=$(PWD) clean
-	@find .. \( -name '*.o' -o -name '*.ko' -o -name '.*.cmd' -o -name '*~' \
+	@find ../src \( -name '*.o' -o -name '*.ko' -o -name '.*.cmd' -o -name '*~' \
+		-o -name '.*.d' -o -name '.*.tmp' -o -name '*.mod.c' -o -name '.#*' \) \
+		-type f -print | xargs rm -f
+	@find ../port \( -name '*.o' -o -name '*.ko' -o -name '.*.cmd' -o -name '*~' \
+		-o -name '.*.d' -o -name '.*.tmp' -o -name '*.mod.c' -o -name '.#*' \) \
+		-type f -print | xargs rm -f
+	@find . \( -name '*.o' -o -name '*.ko' -o -name '.*.cmd' -o -name '*~' \
 		-o -name '.*.d' -o -name '.*.tmp' -o -name '*.mod.c' -o -name '.#*' \) \
 		-type f -print | xargs rm -f
 
