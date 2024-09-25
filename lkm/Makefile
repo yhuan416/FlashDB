@@ -25,12 +25,12 @@ CONFIG_DEBUG_LOGS := y
 obj-m := $(MODULE_NAME).o
 
 # porting
-#EXTRA_CFLAGS += -I$(FLASHDB_PATH)/porting/inc
-#MODULE_OBJECTS += porting/src/fal_flash_lkm_port.o
+EXTRA_CFLAGS += -I$(FLASHDB_PATH)/lkm/porting/inc
+MODULE_OBJECTS += porting/fal_flash_lkm_port.o
 
 # fal
-# EXTRA_CFLAGS += -I$(FLASHDB_PATH)/FlashDB/port/fal/inc
-#MODULE_OBJECTS += FlashDB/port/fal/src/fal.o FlashDB/port/fal/src/fal_flash.o FlashDB/port/fal/src/fal_partition.o 
+EXTRA_CFLAGS += -I$(FLASHDB_PATH)/port/fal/inc
+MODULE_OBJECTS += ../port/fal/src/fal.o ../port/fal/src/fal_flash.o ../port/fal/src/fal_partition.o 
 
 # flashdb
 #EXTRA_CFLAGS += -I$(FLASHDB_PATH)/FlashDB/inc

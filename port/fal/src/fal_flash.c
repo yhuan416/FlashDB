@@ -9,7 +9,6 @@
  */
 
 #include <fal.h>
-#include <string.h>
 
 /* flash device table, must defined by user */
 #if !defined(FAL_FLASH_DEV_TABLE)

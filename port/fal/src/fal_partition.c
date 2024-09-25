@@ -9,8 +9,6 @@
  */
 
 #include <fal.h>
-#include <string.h>
-#include <stdlib.h>
 
 /* partition magic word */
 #define FAL_PART_MAGIC_WORD         0x45503130
@@ -332,9 +330,9 @@ _exit:
  */
 const struct fal_partition *fal_partition_find(const char *name)
 {
-    assert(init_ok);
-
     size_t i;
+
+    assert(init_ok);
 
     for (i = 0; i < partition_table_len; i++)
     {

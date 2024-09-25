@@ -11,8 +11,6 @@
 #ifndef _FAL_DEF_H_
 #define _FAL_DEF_H_
 
-#include <stdint.h>
-#include <stdio.h>
 #ifdef FDB_USING_NATIVE_ASSERT
 #include <assert.h>
 #endif
