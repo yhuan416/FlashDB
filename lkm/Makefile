@@ -17,8 +17,6 @@ ARCH := arm
 
 FLASHDB_PATH := $(PWD)/..
 
-PWD := $(shell pwd)
-
 #enable logging by default
 CONFIG_DEBUG_LOGS := y
 
@@ -46,6 +44,9 @@ all: clean
 
 clean:
 	make ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KERNEL) M=$(PWD) clean
+	@find .. \( -name '*.o' -o -name '*.ko' -o -name '.*.cmd' -o -name '*~' \
+		-o -name '.*.d' -o -name '.*.tmp' -o -name '*.mod.c' -o -name '.#*' \) \
+		-type f -print | xargs rm -f
 
 info:
 	@echo "KERNEL=$(KERNEL)"
