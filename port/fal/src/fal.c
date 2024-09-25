@@ -29,13 +29,13 @@ int fal_init(void)
     result = fal_flash_init();
 
     if (result < 0) {
-        goto __exit;
+        goto _exit;
     }
 
     /* initialize all flash partition on FAL partition table */
     result = fal_partition_init();
 
-__exit:
+_exit:
 
     if ((result > 0) && (!init_ok))
     {

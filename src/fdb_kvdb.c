@@ -1020,7 +1020,7 @@ static fdb_err_t move_kv(fdb_kvdb_t db, fdb_kv_t kv)
             if (find_kv_no_cache(db, name, &kv_bak)) {
                 /* already create success, don't need to duplicate */
                 result = FDB_NO_ERR;
-                goto __exit;
+                goto _exit;
             }
         }
     } else {
@@ -1056,7 +1056,7 @@ static fdb_err_t move_kv(fdb_kvdb_t db, fdb_kv_t kv)
 
     FDB_DEBUG("Moved the KV (%.*s) from 0x%08" PRIX32 " to 0x%08" PRIX32 ".\n", kv->name_len, kv->name, kv->addr.start, kv_addr);
 
-__exit:
+_exit:
     del_kv(db, NULL, kv, true);
 
     return result;
@@ -1412,7 +1412,7 @@ fdb_err_t fdb_kv_set_default(fdb_kvdb_t db)
     for (addr = 0; addr < db_max_size(db); addr += db_sec_size(db)) {
         result = format_sector(db, addr, SECTOR_NOT_COMBINED);
         if (result != FDB_NO_ERR) {
-            goto __exit;
+            goto _exit;
         }
     }
     /* create default KV */
@@ -1427,11 +1427,11 @@ fdb_err_t fdb_kv_set_default(fdb_kvdb_t db)
         sector.empty_kv = FAILED_ADDR;
         create_kv_blob(db, &sector, db->default_kvs.kvs[i].key, db->default_kvs.kvs[i].value, value_len);
         if (result != FDB_NO_ERR) {
-            goto __exit;
+            goto _exit;
         }
     }
 
-__exit:
+_exit:
     db_oldest_addr(db) = 0;
     /* unlock the KV cache */
     db_unlock(db);
@@ -1762,7 +1762,7 @@ fdb_err_t fdb_kvdb_init(fdb_kvdb_t db, const char *name, const char *path, struc
 
     result = _fdb_init_ex((fdb_db_t) db, name, path, FDB_DB_TYPE_KV, user_data);
     if (result != FDB_NO_ERR) {
-        goto __exit;
+        goto _exit;
     }
 
     /* lock the KVDB */
@@ -1816,7 +1816,7 @@ fdb_err_t fdb_kvdb_init(fdb_kvdb_t db, const char *name, const char *path, struc
     /* unlock the KVDB */
     db_unlock(db);
 
-__exit:
+_exit:
 
     _fdb_init_finish((fdb_db_t)db, result);
 
