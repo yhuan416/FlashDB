@@ -5,8 +5,8 @@ MODULE_NAME = flashdb
 MODULE_OBJECTS += main.o
 
 # 编译选项
-EXTRA_CFLAGS += -DFDB_LKM -I$(PWD)
-CFLAGS_main.o = -DDEBUG
+EXTRA_CFLAGS += -DFDB_LKM -I$(PWD) -Wall -Werror
+# CFLAGS_main.o = -DDEBUG
 
 # Toolchain Path
 CROSS_COMPILE ?=
