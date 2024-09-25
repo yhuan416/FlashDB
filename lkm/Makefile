@@ -33,9 +33,9 @@ EXTRA_CFLAGS += -I$(FLASHDB_PATH)/port/fal/inc
 MODULE_OBJECTS += ../port/fal/src/fal.o ../port/fal/src/fal_flash.o ../port/fal/src/fal_partition.o 
 
 # flashdb
-#EXTRA_CFLAGS += -I$(FLASHDB_PATH)/FlashDB/inc
+EXTRA_CFLAGS += -I$(FLASHDB_PATH)/inc
 # MODULE_OBJECTS += FlashDB/src/fdb_file.o FlashDB/src/fdb_kvdb.o FlashDB/src/fdb_tsdb.o FlashDB/src/fdb_utils.o FlashDB/src/fdb.o
-#MODULE_OBJECTS += FlashDB/src/fdb_kvdb.o FlashDB/src/fdb_tsdb.o FlashDB/src/fdb_utils.o FlashDB/src/fdb.o
+MODULE_OBJECTS += ../src/fdb_kvdb.o ../src/fdb_tsdb.o ../src/fdb_utils.o ../src/fdb.o
 
 $(MODULE_NAME)-y := $(MODULE_OBJECTS)
 

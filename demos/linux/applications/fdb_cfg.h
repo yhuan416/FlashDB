@@ -12,6 +12,14 @@
 #ifndef _FDB_CFG_H_
 #define _FDB_CFG_H_
 
+#include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <time.h>
+#include <string.h>
+#include <inttypes.h>
+
 /* using KVDB feature */
 #define FDB_USING_KVDB
 

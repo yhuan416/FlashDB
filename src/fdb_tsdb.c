@@ -13,8 +13,6 @@
  * TSL is time series log, the TSDB saved many TSLs.
  */
 
-#include <inttypes.h>
-#include <string.h>
 #include <flashdb.h>
 #include <fdb_low_lvl.h>
 

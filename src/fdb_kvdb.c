@@ -11,8 +11,6 @@
  * Key-Value Database feature implement source file.
  */
 
-#include <inttypes.h>
-#include <string.h>
 #include <flashdb.h>
 #include <fdb_low_lvl.h>
 
@@ -414,11 +412,15 @@ static fdb_err_t read_sector_info(fdb_kvdb_t db, uint32_t addr, kv_sec_info_t se
     fdb_err_t result = FDB_NO_ERR;
     struct sector_hdr_data sec_hdr = { 0 };
 
+#ifdef FDB_KV_USING_CACHE
+    kv_sec_info_t sector_cache;
+#endif /* FDB_KV_USING_CACHE */
+
     FDB_ASSERT(addr % db_sec_size(db) == 0);
     FDB_ASSERT(sector);
 
 #ifdef FDB_KV_USING_CACHE
-    kv_sec_info_t sector_cache = get_sector_from_cache(db, addr);
+    sector_cache = get_sector_from_cache(db, addr);
     if (sector_cache && ((!traversal) || (traversal && sector_cache->empty_kv != FAILED_ADDR))) {
         memcpy(sector, sector_cache, sizeof(struct kvdb_sec_info));
         return result;

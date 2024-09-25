@@ -13,8 +13,6 @@
 
 #include <flashdb.h>
 #include <fdb_low_lvl.h>
-#include <string.h>
-#include <inttypes.h>
 
 #ifdef FDB_USING_FILE_POSIX_MODE
 #if !defined(_MSC_VER)

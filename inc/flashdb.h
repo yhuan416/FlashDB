@@ -12,11 +12,6 @@
 #ifndef _FLASHDB_H_
 #define _FLASHDB_H_
 
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <time.h>
 #include <fdb_cfg.h>
 
 #ifdef FDB_USING_FAL_MODE
