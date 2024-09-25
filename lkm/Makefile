@@ -39,7 +39,7 @@ $(MODULE_NAME)-y := $(MODULE_OBJECTS)
 
 .PHONY: clean info
 
-all: clean
+all:
 	make ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KERNEL) M=$(PWD) modules
 
 clean:
