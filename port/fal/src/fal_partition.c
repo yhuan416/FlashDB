@@ -159,6 +159,16 @@ static int check_and_update_part_cache(const struct fal_partition *table, size_t
  */
 int fal_partition_init(void)
 {
+#ifdef FDB_LKM
+    /* load partition table from the end address FAL_PART_TABLE_END_OFFSET, error return 0 */
+    long part_table_offset = FAL_PART_TABLE_END_OFFSET;
+    size_t table_num = 0, table_item_size = 0;
+    uint8_t part_table_find_ok = 0;
+    uint32_t read_magic_word;
+    fal_partition_t new_part = NULL;
+    size_t i;
+    const struct fal_flash_dev *flash_dev = NULL;
+#endif
 
     if (init_ok)
     {
@@ -169,6 +179,8 @@ int fal_partition_init(void)
     partition_table = &partition_table_def[0];
     partition_table_len = sizeof(partition_table_def) / sizeof(partition_table_def[0]);
 #else
+
+#ifndef FDB_LKM
     /* load partition table from the end address FAL_PART_TABLE_END_OFFSET, error return 0 */
     long part_table_offset = FAL_PART_TABLE_END_OFFSET;
     size_t table_num = 0, table_item_size = 0;
@@ -177,6 +189,7 @@ int fal_partition_init(void)
     fal_partition_t new_part = NULL;
     size_t i;
     const struct fal_flash_dev *flash_dev = NULL;
+#endif
 
     flash_dev = fal_flash_device_find(FAL_PART_TABLE_FLASH_DEV_NAME);
     if (flash_dev == NULL)
