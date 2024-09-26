@@ -271,6 +271,7 @@ int fal_partition_init(void)
             break;
         }
 
+#ifndef FDB_LKM
         partition_table = (fal_partition_t) FAL_REALLOC(partition_table, table_item_size * (table_num + 1));
         if (partition_table == NULL)
         {
@@ -280,6 +281,7 @@ int fal_partition_init(void)
         }
 
         memcpy(partition_table + table_num, new_part, table_item_size);
+#endif
 
         table_num++;
     };
@@ -292,6 +294,34 @@ int fal_partition_init(void)
     }
     else
     {
+#ifdef FDB_LKM
+        log_i("Malloc %d partition table buffer(%d).", table_num, table_item_size * table_num);
+
+        partition_table = (fal_partition_t)FAL_MALLOC(table_item_size * table_num);
+        if (partition_table == NULL)
+        {
+            log_e("Initialize failed! No memory for partition table");
+            table_num = 0;
+            goto _exit;
+        }
+
+        for (i = 0; i < table_num; i++)
+        {
+            memset(new_part, 0x00, table_item_size);
+            if (flash_dev->ops.read(part_table_offset - (table_item_size * i), (uint8_t *)new_part,
+                                    table_item_size) < 0)
+            {
+                log_e("Initialize failed! Flash device (%s) read error!", flash_dev->name);
+                table_num = 0;
+                FAL_FREE(partition_table);
+                partition_table = NULL;
+                goto _exit;
+            }
+
+            memcpy(&partition_table[i], new_part, table_item_size);
+        }
+#endif
+
         partition_table_len = table_num;
     }
 #endif /* FAL_PART_HAS_TABLE_CFG */
