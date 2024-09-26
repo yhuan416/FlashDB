@@ -67,7 +67,7 @@ if (!(EXPR))                                                                   \
 #ifdef  log_d
 #undef  log_d
 #endif
-#include <inttypes.h>
+
 #define log_d(...)                     FAL_PRINTF("[D/FAL] (%s:%" PRIdLEAST16 ") ", __func__, __LINE__);           FAL_PRINTF(__VA_ARGS__);FAL_PRINTF("\n")
 
 #else
